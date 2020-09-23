@@ -85,21 +85,34 @@ public class Sets extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Graphics g=jPanel1.getGraphics();
         zimet();
-        img=createImage(new MemoryImageSource(jPanel1.getWidth(), jPanel1.getHeight(), pixels, 0));
+        img=createImage(new MemoryImageSource(jPanel1.getWidth(), jPanel1.getHeight(), pixels, 0, jPanel1.getWidth()));
+        g.drawImage(img, 0, 0, null);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
+    int[] pixels=new int[400*400];
+    int[] krasa=new int[400*400];
     Image img;
     public void zimet(){
-        int[] pixels=new int[jPanel1.getHeight()*jPanel1.getWidth()];
         for (int i=0; i<pixels.length; i++){
             pixels[i]=(255<<24)|(0<<16)|(255<<8)|0;
         }
     }
-    
+    public void aprekins(){
+        double x1=-1;
+        double x2=1;
+        double y1=-1;
+        double y2=1;
+        double wid=Math.abs(x1)+Math.abs(x2);
+        double he=Math.abs(y1)+Math.abs(y2);
+        for(int i=0; i<400; i++){
+            for(int j=0; j<400; j++){
+                
+            }
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
