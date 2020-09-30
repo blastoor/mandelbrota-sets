@@ -33,6 +33,14 @@ public class Sets extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +64,22 @@ public class Sets extends javax.swing.JFrame {
             .addGap(0, 400, Short.MAX_VALUE)
         );
 
+        jTextField1.setText("-1");
+
+        jTextField2.setText("-1");
+
+        jTextField3.setText("1");
+
+        jTextField4.setText("1");
+
+        jLabel1.setText("x sākums");
+
+        jLabel2.setText("x beigas");
+
+        jLabel3.setText("y sākums");
+
+        jLabel4.setText("y beigas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,15 +91,48 @@ public class Sets extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                        .addComponent(jTextField2))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField4)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -84,6 +141,10 @@ public class Sets extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Graphics g=jPanel1.getGraphics();
+        x1=Double.parseDouble(jTextField1.getText());
+        x2=Double.parseDouble(jTextField3.getText());
+        y1=Double.parseDouble(jTextField2.getText());
+        y2=Double.parseDouble(jTextField4.getText());
         zimet();
         img=createImage(new MemoryImageSource(jPanel1.getWidth(), jPanel1.getHeight(), pixels, 0, jPanel1.getWidth()));
         g.drawImage(img, 0, 0, null);
@@ -92,24 +153,55 @@ public class Sets extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    double x1=-1;
+    double x2=1;
+    double y1=-1;
+    double y2=1;
     int[] pixels=new int[400*400];
     int[] krasa=new int[400*400];
     Image img;
     public void zimet(){
+        aprekins();
         for (int i=0; i<pixels.length; i++){
-            pixels[i]=(255<<24)|(0<<16)|(255<<8)|0;
+            if(krasa[i]>=100){
+                pixels[i]=(255<<24)|(0<<16)|(0<<8)|0;
+            }
+            else{
+                if(krasa[i]>=50&&krasa[i]<100){
+                    pixels[i]=(255<<24)|(0<<16)|(0<<8)|153;
+                }
+                else{
+                    if(krasa[i]>=20&&krasa[i]<50){
+                        pixels[i]=(255<<24)|(0<<16)|(128<<8)|255;
+                    }
+                    else{
+                        pixels[i]=(255<<24)|(153<<16)|(204<<8)|255;
+                    }
+                }
+            }
         }
     }
     public void aprekins(){
-        double x1=-1;
-        double x2=1;
-        double y1=-1;
-        double y2=1;
-        double wid=Math.abs(x1)+Math.abs(x2);
-        double he=Math.abs(y1)+Math.abs(y2);
+        double m=10;
+        double wid=x2-x1;
+        double he=y2-y1;
         for(int i=0; i<400; i++){
             for(int j=0; j<400; j++){
-                
+                double im=y2-i*he/400;
+                double re=x1+j*wid/400;
+                double cre=re;
+                double cim=im;
+                int k=0;
+                double zmod=0;
+                do{
+                    double rej=Math.pow(re, 2)-Math.pow(im, 2)+cre;
+                    double imj=2*re*im+cim;
+                    zmod=Math.pow(rej, 2)-Math.pow(imj, 2);
+                    re=rej;
+                    im=imj;
+                    k++;
+                }while(k<101&&zmod<=m);
+                krasa[i*400+j]=k;
             }
         }
     }
@@ -147,6 +239,14 @@ public class Sets extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }
