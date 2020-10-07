@@ -52,6 +52,14 @@ public class Sets extends javax.swing.JFrame {
         });
 
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 400));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jPanel1MouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,19 +148,51 @@ public class Sets extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Graphics g=jPanel1.getGraphics();
         x1=Double.parseDouble(jTextField1.getText());
         x2=Double.parseDouble(jTextField3.getText());
         y1=Double.parseDouble(jTextField2.getText());
         y2=Double.parseDouble(jTextField4.getText());
-        zimet();
-        img=createImage(new MemoryImageSource(jPanel1.getWidth(), jPanel1.getHeight(), pixels, 0, jPanel1.getWidth()));
-        g.drawImage(img, 0, 0, null);
+        izsaukt(x1, x2, y1, y2);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        int x=evt.getX();
+        int y=evt.getY();
+        zx1=x1+x*(x2-x1)/400;
+        zy2=y2-y*(y2-y1)/400;
+    }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
+        int x=evt.getX();
+        int y=evt.getY();
+        zx2=x1+x*(x2-x1)/400;
+        zy1=y2-y*(y2-y1)/400;
+        jTextField1.setText(String.valueOf(zx1));
+        jTextField2.setText(String.valueOf(zy1));
+        jTextField3.setText(String.valueOf(zx2));
+        jTextField4.setText(String.valueOf(zy2));
+        izsaukt(zx1, zx2, zy1, zy2);
+        x1=zx1;
+        x2=zx2;
+        y1=zy1;
+        y2=zy2;
+    }//GEN-LAST:event_jPanel1MouseReleased
 
     /**
      * @param args the command line arguments
      */
+    //mainīgie zoom funkcijai
+    double zx1=0;
+    double zx2=0;
+    double zy1=0;
+    double zy2=0;
+    public void izsaukt(double x1, double x2, double y1, double y2){
+        Graphics g=jPanel1.getGraphics();
+        zimet(x1, x2, y1, y2);
+        img=createImage(new MemoryImageSource(jPanel1.getWidth(), jPanel1.getHeight(), pixels, 0, jPanel1.getWidth()));
+        g.drawImage(img, 0, 0, null);
+    }
+    //globālie mainīgie intervālam
     double x1=-1;
     double x2=1;
     double y1=-1;
@@ -160,8 +200,8 @@ public class Sets extends javax.swing.JFrame {
     int[] pixels=new int[400*400];
     int[] krasa=new int[400*400];
     Image img;
-    public void zimet(){
-        aprekins();
+    public void zimet(double x1, double x2, double y1, double y2){
+        aprekins(x1, x2, y1, y2);
         for (int i=0; i<pixels.length; i++){
             if(krasa[i]>=100){
                 pixels[i]=(255<<24)|(0<<16)|(0<<8)|0;
@@ -181,7 +221,7 @@ public class Sets extends javax.swing.JFrame {
             }
         }
     }
-    public void aprekins(){
+    public void aprekins(double x1, double x2, double y1, double y2){
         double m=10;
         double wid=x2-x1;
         double he=y2-y1;
