@@ -8,6 +8,7 @@ package mandelbrots;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.MemoryImageSource;
+import java.util.Stack;
 
 /**
  *
@@ -41,6 +42,7 @@ public class Sets extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        zoomOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +90,13 @@ public class Sets extends javax.swing.JFrame {
 
         jLabel4.setText("y beigas");
 
+        zoomOut.setText("ZoomOut");
+        zoomOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomOutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,21 +108,27 @@ public class Sets extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                        .addComponent(jTextField2))
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField4)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                                .addComponent(jTextField2))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField4)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)))
+                        .addContainerGap(74, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(zoomOut)
+                        .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +155,9 @@ public class Sets extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(zoomOut)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -163,14 +180,18 @@ public class Sets extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
+        steks.push(x1);
+        steks.push(x2);
+        steks.push(y1);
+        steks.push(y2);
         int x=evt.getX();
         int y=evt.getY();
         zx2=x1+x*(x2-x1)/400;
         zy1=y2-y*(y2-y1)/400;
-        jTextField1.setText(String.valueOf(zx1));
+        /*jTextField1.setText(String.valueOf(zx1));
         jTextField2.setText(String.valueOf(zy1));
         jTextField3.setText(String.valueOf(zx2));
-        jTextField4.setText(String.valueOf(zy2));
+        jTextField4.setText(String.valueOf(zy2));*/
         izsaukt(zx1, zx2, zy1, zy2);
         x1=zx1;
         x2=zx2;
@@ -178,9 +199,25 @@ public class Sets extends javax.swing.JFrame {
         y2=zy2;
     }//GEN-LAST:event_jPanel1MouseReleased
 
+    private void zoomOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutActionPerformed
+        if(!steks.isEmpty()){
+            double a4=steks.pop();
+            double a3=steks.pop();
+            double a2=steks.pop();
+            double a1=steks.pop();
+            izsaukt(a1, a2, a3, a4);
+            x1=a1;
+            x2=a2;
+            y1=a3;
+            y2=a4;
+        }
+    }//GEN-LAST:event_zoomOutActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    Stack<Double> steks=new Stack();
+    
     //mainīgie zoom funkcijai
     double zx1=0;
     double zx2=0;
@@ -203,11 +240,13 @@ public class Sets extends javax.swing.JFrame {
     public void zimet(double x1, double x2, double y1, double y2){
         aprekins(x1, x2, y1, y2);
         for (int i=0; i<pixels.length; i++){
-            if(krasa[i]>=100){
+            int y=krasa[i];
+            if(y>=100){
                 pixels[i]=(255<<24)|(0<<16)|(0<<8)|0;
             }
             else{
-                if(krasa[i]>=50&&krasa[i]<100){
+                pixels[i]=(255<<24)|((10*y)%256<<16)|((10*y)%256<<8)|255;
+                /*if(krasa[i]>=50&&krasa[i]<100){
                     pixels[i]=(255<<24)|(0<<16)|(0<<8)|153;
                 }
                 else{
@@ -217,7 +256,7 @@ public class Sets extends javax.swing.JFrame {
                     else{
                         pixels[i]=(255<<24)|(153<<16)|(204<<8)|255;
                     }
-                }
+                }*/
             }
         }
     }
@@ -240,7 +279,7 @@ public class Sets extends javax.swing.JFrame {
                     re=rej;
                     im=imj;
                     k++;
-                }while(k<101&&zmod<=m);
+                }while(k<100&&zmod<=m);
                 krasa[i*400+j]=k;
             }
         }
@@ -288,5 +327,6 @@ public class Sets extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton zoomOut;
     // End of variables declaration//GEN-END:variables
 }
