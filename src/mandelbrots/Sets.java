@@ -177,8 +177,11 @@ public class Sets extends javax.swing.JFrame {
         int y=evt.getY();
         zx1=x1+x*(x2-x1)/400;
         zy2=y2-y*(y2-y1)/400;
+        iks=x;
+        igr=y;
     }//GEN-LAST:event_jPanel1MousePressed
-
+int iks=0;
+int igr=0;
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
         steks.push(x1);
         steks.push(x2);
@@ -186,12 +189,18 @@ public class Sets extends javax.swing.JFrame {
         steks.push(y2);
         int x=evt.getX();
         int y=evt.getY();
+        if(x-iks>y-igr){
+            x=iks+y-igr;
+        }
+        else{
+            y=igr+x-iks;
+        }
         zx2=x1+x*(x2-x1)/400;
         zy1=y2-y*(y2-y1)/400;
-        /*jTextField1.setText(String.valueOf(zx1));
+        jTextField1.setText(String.valueOf(zx1));
         jTextField2.setText(String.valueOf(zy1));
         jTextField3.setText(String.valueOf(zx2));
-        jTextField4.setText(String.valueOf(zy2));*/
+        jTextField4.setText(String.valueOf(zy2));
         izsaukt(zx1, zx2, zy1, zy2);
         x1=zx1;
         x2=zx2;
@@ -205,6 +214,10 @@ public class Sets extends javax.swing.JFrame {
             double a3=steks.pop();
             double a2=steks.pop();
             double a1=steks.pop();
+            jTextField1.setText(String.valueOf(a1));
+            jTextField2.setText(String.valueOf(a3));
+            jTextField3.setText(String.valueOf(a2));
+            jTextField4.setText(String.valueOf(a4));
             izsaukt(a1, a2, a3, a4);
             x1=a1;
             x2=a2;
